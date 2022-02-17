@@ -22,12 +22,12 @@ def get_file_size(file_path):
     return size(size_)
 
 
-def image_optimizer(image_data, estate_id):
+def image_optimizer(fname, estate_id):
     try:
-        fat_img = Image.open(IMG_PATH + estate_id + image_data.name)
+        fat_img = Image.open('/var/www/store-v2/storage/app/public/cdn/images/'+fname)
         ###
-        create_directory(IMG_COMPRESS_PATH + estate_id)
-        slim_img_filename = IMG_COMPRESS_PATH + estate_id + image_data.name
+        # create_directory(IMG_COMPRESS_PATH + estate_id)
+        slim_img_filename = '/var/www/store-v2/storage/app/public/cdn/images/compressed/'+fname
         fat_img.save(slim_img_filename, optimize=True,
                      quality=IMG_QUALITY)  # 95 => 50% , 90 => 30%
     except Exception as e:

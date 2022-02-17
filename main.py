@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from logger import log
-
+import os
 # uvicorn main:app --host 0.0.0.0 --port 80 --reload
 
 app = FastAPI()
@@ -38,6 +38,21 @@ class OptImgBody(BaseModel):
     estate_id: str
     images: List[ImageBody]
 
+
+@app.get("/api/compress-all")
+def compress_all():
+    optimized_images = []
+    skipped_images = []
+    files = os.listdir('/var/www/store-v2/storage/app/public/cdn/images')
+    for fname in files:
+        if image_optimizer(fname, 1):
+            optimized_images.append(fname)
+        else:
+            skipped_images.append(fname)
+    return {
+        'optimized_images': optimized_images,
+        'skipped_images': skipped_images
+    }
 
 @app.post("/api/image/optimize")
 def optimize_images(body: OptImgBody):
