@@ -28,7 +28,7 @@ def image_optimizer(fname, estate_id):
         ###
         # create_directory(IMG_COMPRESS_PATH + estate_id)
         slim_img_filename = '/var/www/store-v2/storage/app/public/cdn/images/tiny-images-plus/'+fname
-        fat_img.resize(100, 100)
+        fat_img.resize((100, 100))
         fat_img.save(slim_img_filename, optimize=True,
                      quality=IMG_QUALITY)  # 95 => 50% , 90 => 30%
     except Exception as e:
