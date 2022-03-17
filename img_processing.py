@@ -20,6 +20,8 @@ def create_directory(path):
 def get_file_size(file_path):
     size_ = os.path.getsize(file_path)
     return size(size_)
+
+
 '''
   fat_img = Image.open('/var/www/store-v2/storage/app/public/cdn/images/'+fname)
         ###
@@ -30,20 +32,24 @@ def get_file_size(file_path):
                      quality=IMG_QUALITY)  # 95 => 50% , 90 => 30%
 '''
 
+
 def image_optimizer(image_name):
     try:
         fat_img = Image.open(ROOT_DIR + image_name)
-        ### make directories
+        # make directories
         create_directory(IMG_COMPRESS_PATH)
-        create_directory(RESIZED_PATH)
+        # create_directory(RESIZED_PATH)
 
         # compressed image name
         slim_img_filename = IMG_COMPRESS_PATH + image_name
-        resized_filename = RESIZED_PATH + image_name
+        #resized_filename = RESIZED_PATH + image_name
         # Save resize imaeg
-        resized = fat_img.resize((200, 200))
-        resized.save(resized_filename, optimize=True,
+        #resized = fat_img.resize((200, 200))
+        '''
+             resized.save(resized_filename, optimize=True,
                      quality=IMG_QUALITY)  # 95 => 50% , 90 => 30%
+        '''
+
         # Save compressed image
         fat_img.save(slim_img_filename, optimize=True,
                      quality=IMG_QUALITY)  # 95 => 50% , 90 => 30%
